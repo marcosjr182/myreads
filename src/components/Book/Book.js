@@ -1,26 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
+import BookCover from './BookCover'
 import BookActions from './BookActions'
 
-const Book = () => {
-  const bookCoverImage = 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api';
-  const bookCoverStyle = {
-    width: 128,
-    height: 193,
-    backgroundImage: `url("${bookCoverImage}")`
-  };
-
-  return (
-    <div className="book">
-      <div className="book-top">
-        <div className="book-cover" style={bookCoverStyle}></div>
-        <div className="book-shelf-changer">
-          <BookActions />
-        </div>
-      </div>
-      <div className="book-title">To Kill a Mockingbird</div>
-      <div className="book-authors">Harper Lee</div>
+const Book = ({ title, authors, imageLinks, setBookShelf }) => (
+  <div className="book">
+    <div className="book-top">
+      <BookCover thumbnail={imageLinks.smallThumbnail} />
+      <BookActions onChangeHandler={setBookShelf} />
     </div>
-  );
+    <div className="book-title">
+      { title }
+    </div>
+    <div className="book-authors">
+      { authors.join(', ') }
+    </div>
+  </div>
+);
+
+Book.propTypes = {
+  title: PropTypes.string,
+  authors: PropTypes.arrayOf(PropTypes.string),
+  imageLinks: PropTypes.instanceOf(BookCover)
 }
 
 export default Book

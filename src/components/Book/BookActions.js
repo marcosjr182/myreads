@@ -13,11 +13,12 @@ const renderOption = (props) => (
 );
 
 const BookActions = ({ onChangeHandler }) => {
-  
   return (
-    <select onChange={onChangeHandler}>
-      { example.map(renderOption) }
-    </select>
+    <div className="book-shelf-changer">
+      <select onChange={onChangeHandler}>
+        { example.map(renderOption) }
+      </select>
+    </div>
   );
 }
 

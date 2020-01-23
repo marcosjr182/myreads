@@ -1,6 +1,6 @@
 import React from 'react'
 
-const example = [
+const actionList = [
   { value: 'move', label: 'Move to...', disabled: true },
   { value: 'currentlyReading', label: 'Currently Reading' },
   { value: 'wantToRead', label: 'Want to Read' },
@@ -9,14 +9,14 @@ const example = [
 ]
 
 const renderOption = (props) => (
-  <option {...props}></option>
+  <option key={props.value} {...props}></option>
 );
 
 const BookActions = ({ onChangeHandler }) => {
   return (
     <div className="book-shelf-changer">
       <select onChange={onChangeHandler}>
-        { example.map(renderOption) }
+        { actionList.map(renderOption) }
       </select>
     </div>
   );

@@ -7,14 +7,14 @@ import BookActions from './BookActions'
 const Book = ({ title, authors, imageLinks, setBookShelf }) => (
   <div className="book">
     <div className="book-top">
-      <BookCover thumbnail={imageLinks.smallThumbnail} />
+      <BookCover {...imageLinks} />
       <BookActions onChangeHandler={setBookShelf} />
     </div>
     <div className="book-title">
       { title }
     </div>
     <div className="book-authors">
-      { authors.join(', ') }
+      { (authors || []).join(', ') }
     </div>
   </div>
 );
@@ -22,7 +22,7 @@ const Book = ({ title, authors, imageLinks, setBookShelf }) => (
 Book.propTypes = {
   title: PropTypes.string,
   authors: PropTypes.arrayOf(PropTypes.string),
-  imageLinks: PropTypes.instanceOf(BookCover)
+  imageLinks: PropTypes.object
 }
 
 export default Book

@@ -8,14 +8,15 @@ const styleBookCover = (thumbnail) => ({
   backgroundSize: 'cover',
 })
 
-const BookCover = ({ thumbnail }) => (
+const BookCover = ({ smallThumbnail }) => (
   <div
     className="book-cover"
-    style={styleBookCover(thumbnail)}>
+    style={styleBookCover(smallThumbnail)}>
   </div>
 )
 
 BookCover.propTypes = {
+  smallThumbnail: PropTypes.string,
   thumbnail: PropTypes.string,
 }
 

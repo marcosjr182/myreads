@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 
 import Book from './Book'
 
-const renderBook = (book, i) => (
+const renderBookItem = handleMove => (book, i) => (
   <li key={`${i}-${book.value}`}>
-    <Book {...book} />
+    <Book {...book} onMove={handleMove} />
   </li>
 )
 
-const BookList = ({ books = [] }) => (
+const BookList = ({ books = [], handleMove }) => (
   <ol className="books-grid">
-    { books.map(renderBook) }
+    { books.map(renderBookItem(handleMove)) }
   </ol>
 )
 

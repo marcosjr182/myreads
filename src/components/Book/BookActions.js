@@ -8,15 +8,19 @@ const actionList = [
   { value: 'none', label: 'None' },
 ]
 
-const renderOption = (props) => (
+const Option = (props) => (
   <option key={props.value} {...props}></option>
 );
 
-const BookActions = ({ onChangeHandler }) => {
+const BookActions = ({ book, onMove }) => {
   return (
     <div className="book-shelf-changer">
-      <select onChange={onChangeHandler}>
-        { actionList.map(renderOption) }
+      <select value='move' onChange={(event) => onMove(event, book)}>
+        {
+          actionList
+            .filter(action => action.value !== book.shelf)
+            .map(Option)
+        }
       </select>
     </div>
   );

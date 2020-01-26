@@ -21,6 +21,7 @@ class HomePage extends React.Component {
       bookShelf: {},
       loading: true
     }
+    this.handleMove = this.handleMove.bind(this)
   }
 
   componentDidMount() {
@@ -31,6 +32,19 @@ class HomePage extends React.Component {
       .catch(error => {
         this.setState({ loading: false, error })
       });
+  }
+
+  handleMove(event, book) {
+    const targetShelf = (event && event.target.value) || book.shelf
+    const previousBookShelf = this.state.bookShelf;
+    const fixedBookShelf = {
+      ...previousBookShelf,
+      [book.shelf]: previousBookShelf[book.shelf].filter(b => b.id !== book.id),
+      [targetShelf]: previousBookShelf[targetShelf].concat({...book, shelf: targetShelf})
+    }
+
+    return BooksAPI.update(book, targetShelf)
+      .then(res => this.setState({ bookShelf: fixedBookShelf }))
   }
 
   render() {
@@ -46,9 +60,21 @@ class HomePage extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf title='Currently Reading' books={currentlyReading} />
-            <BookShelf title='Want to Read' books={wantToRead} />
-            <BookShelf title='Read' books={read} />
+            <BookShelf
+              handleMove={this.handleMove}
+              title='Currently Reading'
+              books={currentlyReading} 
+              />
+            <BookShelf
+              handleMove={this.handleMove}
+              title='Want to Read'
+              books={wantToRead}
+              />
+            <BookShelf
+              handleMove={this.handleMove}
+              title='Read'
+              books={read}
+            />
           </div>
         </div>
         <div className="open-search">

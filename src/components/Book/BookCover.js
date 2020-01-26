@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const styleBookCover = (thumbnail) => ({
   width: 128,
-  height: 193,
+  height: '100%',
   backgroundImage: `url("${thumbnail}")`,
   backgroundSize: 'cover',
 })

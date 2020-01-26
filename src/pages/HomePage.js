@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import * as BooksAPI from '../BooksAPI'
 import BookShelf from '../components/Book/BookShelf'
@@ -52,9 +52,11 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div className="open-search">
-          <button onClick={this.handleAddBook}>
-            Add a book
-          </button>
+          <Link to='/search'>
+            <button>
+              Add a book
+            </button>
+          </Link>
         </div>
       </div>
     )

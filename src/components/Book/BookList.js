@@ -9,7 +9,7 @@ const renderBook = (book, i) => (
   </li>
 )
 
-const BookList = ({ books }) => (
+const BookList = ({ books = [] }) => (
   <ol className="books-grid">
     { books.map(renderBook) }
   </ol>

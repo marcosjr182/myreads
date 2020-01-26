@@ -5,7 +5,7 @@ import * as BooksAPI from '../BooksAPI'
 import BookShelf from '../components/Book/BookShelf'
 
 const booksByShelf = (prev, book) => {
-  const { shelf = 'N/A' } = book
+  const { shelf = 'None' } = book
   const shelfBooks = (prev[shelf] || [])
   return {
     ...prev, 

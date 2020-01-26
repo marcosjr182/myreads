@@ -1,4 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
+import Book from './Book'
 
 const renderBook = (book, i) => (
   <li key={`${i}-${book.value}`}>

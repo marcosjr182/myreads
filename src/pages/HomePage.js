@@ -35,16 +35,22 @@ class HomePage extends React.Component {
   }
 
   handleMove(event, book) {
+    const bookShelf = this.state.bookShelf
+    const getBooks = (shelf) => (bookShelf[shelf] || [])
+
     const targetShelf = (event && event.target.value) || book.shelf
-    const previousBookShelf = this.state.bookShelf;
     const fixedBookShelf = {
-      ...previousBookShelf,
-      [book.shelf]: previousBookShelf[book.shelf].filter(b => b.id !== book.id),
-      [targetShelf]: previousBookShelf[targetShelf].concat({...book, shelf: targetShelf})
+      ...bookShelf,
+      [book.shelf]: getBooks(book.shelf).filter(b => b.id !== book.id),
+      [targetShelf]: getBooks(targetShelf).concat({...book, shelf: targetShelf})
     }
 
     return BooksAPI.update(book, targetShelf)
-      .then(res => this.setState({ bookShelf: fixedBookShelf }))
+      .then(() => this.setState({ bookShelf: fixedBookShelf }))
+  }
+
+  getBookShelf(shelf) {
+    return ;
   }
 
   render() {

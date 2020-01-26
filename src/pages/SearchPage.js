@@ -2,7 +2,7 @@ import React from 'react'
 import BookList from '../components/Book/BookList'
 import { Link } from 'react-router-dom'
 
-import { search as fetchSearch } from '../BooksAPI'
+import * as BooksAPI from '../BooksAPI'
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -13,16 +13,27 @@ class SearchPage extends React.Component {
     }
 
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleMove = this.handleMove.bind(this)
   }
 
   handleSearch({ target }) {
     const searchTerm = (target.value || '')
-    fetchSearch(searchTerm)
+    BooksAPI.search(searchTerm)
       .then((res) => {
         return (res && res.error)
           ? this.setState({ books: [], error: res.error })
           : this.setState({ books: res })
       })
+  }
+
+  handleMove(event, book) {
+    const targetShelf = (event && event.target.value) || book.shelf
+    const currentBooks = this.state.books
+      .filter(b => b.id !== book.id)
+      .concat({ ...book, shelf: targetShelf })
+
+    return BooksAPI.update(book, targetShelf)
+      .then(() => this.setState({ books: currentBooks }))
   }
 
   render() {
@@ -44,7 +55,7 @@ class SearchPage extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BookList books={books} />
+          <BookList books={books} handleMove={this.handleMove} />
         </div>
       </div>
     )

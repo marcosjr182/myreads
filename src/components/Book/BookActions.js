@@ -13,14 +13,13 @@ const Option = (props) => (
 );
 
 const BookActions = ({ book, onMove }) => {
+  const currentBookshelf = (book.shelf || 'None');
   return (
     <div className="book-shelf-changer">
-      <select value='move' onChange={(event) => onMove(event, book)}>
-        {
-          actionList
-            .filter(action => action.value !== book.shelf)
-            .map(Option)
-        }
+      <select
+        value={currentBookshelf}
+        onChange={(event) => onMove(event, book)}>
+        { actionList.map(Option) }
       </select>
     </div>
   );
